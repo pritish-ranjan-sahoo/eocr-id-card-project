@@ -73,7 +73,6 @@ router.post(
     { name: "hindiDesg", maxCount: 1 },
   ]),
   createReqValidation,
-  authMiddleware.authUser,
   gazUserController.createReq
 );
 
@@ -92,7 +91,6 @@ router.post(
       .toDate()
       .withMessage("Date of Birth must be a valid date"),
   ],
-  authMiddleware.authUser,
   gazUserController.appStatus
 );
 

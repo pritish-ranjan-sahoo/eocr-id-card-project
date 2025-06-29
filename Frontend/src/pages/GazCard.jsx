@@ -118,16 +118,10 @@ export default function GazCard() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const token = localStorage.getItem("token");
-    if (!token) {
-      navigate("/login");
-      return;
-    }
     console.log("Submitted Data:", formData);
     const response = await axios
       .post(`${import.meta.env.VITE_BASE_URL}/gaz/create-req`, formData, {
         headers: {
-          Authorization: `Bearer ${token}`,
           "Content-Type": "multipart/form-data"
         },
       })

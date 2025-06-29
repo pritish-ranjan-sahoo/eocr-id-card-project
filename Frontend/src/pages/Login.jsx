@@ -29,7 +29,7 @@ const Login = () => {
       setUser(data.user);
       alert(`welcome user!!\nYour Employee Id: ${data.user._id}`);
       localStorage.setItem("token", data.token);
-      navigate("/app-status");
+      navigate("/print-app");
     }
     setUserId("");
     setPassword("");

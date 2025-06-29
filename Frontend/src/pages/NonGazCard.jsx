@@ -114,15 +114,9 @@ export default function NonGazCard() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const token = localStorage.getItem("token");
-    if (!token) {
-      navigate("/login");
-      return;
-    }
     const response = await axios
       .post(`${import.meta.env.VITE_BASE_URL}/nonGaz/create-req`, formData, {
         headers: {
-          Authorization: `Bearer ${token}`,
           "Content-Type": "multipart/form-data",
         },
       })

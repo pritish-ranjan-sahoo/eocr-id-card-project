@@ -55,7 +55,6 @@ router.post(
     { name: "signPic", maxCount: 1 },
   ]),
   createReqValidation,
-  authMiddleware.authUser,
   nonGazUserController.createReq
 );
 router.post(
@@ -70,7 +69,6 @@ router.post(
       .toDate()
       .withMessage("Date of Birth must be a valid date"),
   ],
-  authMiddleware.authUser,
   nonGazUserController.appStatus
 );
 

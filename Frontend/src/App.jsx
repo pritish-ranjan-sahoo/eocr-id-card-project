@@ -5,52 +5,45 @@ import Login from "./pages/Login";
 import NonGazCard from "./pages/NonGazCard";
 import AppStatus from "./pages/AppStatus";
 import UserLogout from "./pages/UserLogout";
+import GazPending from "./pages/GazPending";
+import NonGazPending from "./pages/NonGazPending";
+import PrintApplication from "./pages/PrintApplication";
 import "./App.css";
 
 function App() {
   return (
     <>
       <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/gaz-card" element={<GazCard />} />
+        <Route path="/nongaz-card" element={<NonGazCard />} />
         <Route
-          path="/"
+          path="/pending-gaz"
           element={
             <UserProtectWrapper>
-              <Login />
+              <GazPending />
             </UserProtectWrapper>
           }
         />
         <Route
-          path="/login"
+          path="/pending-nonGaz"
           element={
             <UserProtectWrapper>
-              <Login />
+              <NonGazPending />
             </UserProtectWrapper>
           }
         />
         <Route
-          path="/gaz-card"
+          path="/print-app"
           element={
             <UserProtectWrapper>
-              <GazCard />
+              <PrintApplication />
             </UserProtectWrapper>
           }
         />
-        <Route
-          path="/nongaz-card"
-          element={
-            <UserProtectWrapper>
-              <NonGazCard />
-            </UserProtectWrapper>
-          }
-        />
-        <Route
-          path="/app-status"
-          element={
-            <UserProtectWrapper>
-              <AppStatus />
-            </UserProtectWrapper>
-          }
-        />
+
+        <Route path="/app-status" element={<AppStatus />} />
         <Route
           path="/logout"
           element={

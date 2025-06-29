@@ -1,17 +1,13 @@
 import React, { useState } from "react";
 import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
-import StatusTable from "../components/StatusTable";
 import axios from "axios";
 
 export default function AppStatus() {
-  const [page, setPage] = useState(false);
-  const [isGaz, setIsGaz] = useState(false);
   const [id, setId] = useState("");
   const [dob, setDob] = useState("");
   const [id_non, setId_non] = useState("");
   const [dob_non, setDob_non] = useState("");
-  const [app, setApp] = useState({});
 
   const submitHandlerGaz = async (e) => {
     e.preventDefault();
@@ -19,25 +15,14 @@ export default function AppStatus() {
       ruidNo: id,
       dob,
     };
-    const token = localStorage.getItem("token");
-    if (!token) {
-      alert("You are not logged in");
-      return;
-    }
     const response = await axios
-      .post(`${import.meta.env.VITE_BASE_URL}/gaz/app-status`, application, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      .post(`${import.meta.env.VITE_BASE_URL}/gaz/app-status`, application)
       .catch((e) => {
         alert("No such application found !!!");
       });
     if (response.status === 201) {
       const data = response.data;
-      setApp(data.app);
-      setIsGaz(true);
-      setPage(true);
+      alert("Your Application is: "+ data.app.status);
     }
     console.log(id);
     console.log(dob);
@@ -51,24 +36,14 @@ export default function AppStatus() {
       empNo: id_non,
       dob: dob_non,
     };
-    const token = localStorage.getItem("token");
-    if (!token) {
-      alert("You are not logged in");
-      return;
-    }
     const response = await axios
-      .post(`${import.meta.env.VITE_BASE_URL}/nonGaz/app-status`, application, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      .post(`${import.meta.env.VITE_BASE_URL}/nonGaz/app-status`, application)
       .catch((e) => {
         alert("No such application found !!!");
       });
     if (response.status === 201) {
-      setApp(response.data.app);
-      setIsGaz(false);
-      setPage(true);
+      const data = response.data;
+      alert("Your Application is: "+ data.app.status);
     }
     console.log(id_non);
     console.log(dob_non);
@@ -146,14 +121,6 @@ export default function AppStatus() {
               </button>
             </div>
           </form>
-          {page && (
-            <StatusTable
-              app={app}
-              setApp={setApp}
-              setPage={setPage}
-              isGaz={isGaz}
-            />
-          )}
         </div>
       </div>
     </>
