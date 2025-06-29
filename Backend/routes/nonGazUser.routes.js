@@ -72,4 +72,10 @@ router.post(
   nonGazUserController.appStatus
 );
 
+router.post(
+  "/search-applications",
+  authMiddleware.authUser,
+  nonGazUserController.searchApplications
+);
+
 module.exports = router;

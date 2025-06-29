@@ -92,3 +92,38 @@ module.exports.appStatus = async (req, res, next) => {
 
 };
 
+
+module.exports.searchApplications = async (req, res, next) => {
+  try {
+    const { from, to, status } = req.body;
+
+    const query = {};
+
+    if (status) {
+      query.status = status;
+    }
+
+    if (from && to) {
+      query.createdAt = {
+        $gte: new Date(from),
+        $lte: new Date(to),
+      };
+    } else if (from) {
+      query.createdAt = {
+        $gte: new Date(from),
+        $lte: new Date(),
+      };
+    } else if (to) {
+      query.createdAt = {
+        $lte: new Date(to),
+      };
+    }
+
+    const applications = await nonGazUserModel.find(query).sort({ createdAt: -1 });
+
+    res.status(200).json({ applications });
+  } catch (error) {
+    console.error("Error in searchApplications:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};

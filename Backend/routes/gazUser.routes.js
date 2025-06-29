@@ -94,4 +94,11 @@ router.post(
   gazUserController.appStatus
 );
 
+router.post(
+  "/search-applications",
+  authMiddleware.authUser,
+  gazUserController.searchApplications
+);
+
+
 module.exports = router;
